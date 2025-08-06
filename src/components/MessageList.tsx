@@ -18,19 +18,26 @@ const MessageList: React.FC<Props> = ({ messages }) => {
 	return (
 		<div
 			ref={listRef}
-			style={{
-				height: "300px", // 固定高さ
-				overflowY: "auto", // 縦スクロール可能
-				border: "1px solid #ccc",
-				padding: "8px",
-				backgroundColor: "#f9f9f9",
-			}}
+			className="h-80 overflow-y-auto border border-gray-600 bg-gray-700 rounded-lg p-4 space-y-2"
 		>
-			{messages.length === 0 && <p>まだメッセージはありません</p>}
+			{messages.length === 0 && (
+				<p className="text-gray-400 text-center italic">まだメッセージはありません</p>
+			)}
 			{messages.map((msg, idx) => (
-				<p key={idx} style={{ color: msg.color, margin: "4px 0" }}>
-					<strong>{msg.user_name}:</strong> {msg.message}
-				</p>
+				<div key={idx} className="flex flex-col space-y-1">
+					<div className="flex items-center space-x-2">
+						<span className="text-sm font-semibold text-blue-300">{msg.user_name}:</span>
+						<span className="text-xs text-gray-500">
+							{new Date().toLocaleTimeString()}
+						</span>
+					</div>
+					<p 
+						style={{ color: msg.color }} 
+						className="ml-4 text-base leading-relaxed"
+					>
+						{msg.message}
+					</p>
+				</div>
 			))}
 		</div>
 	);
